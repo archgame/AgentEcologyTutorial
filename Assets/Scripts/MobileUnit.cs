@@ -7,6 +7,8 @@ public class MobileUnit : MonoBehaviour
 {
     public GameObject Target;
 
+    public GameObject[] Positions;
+
     private NavMeshAgent Agent;
 
     // Start is called before the first frame update

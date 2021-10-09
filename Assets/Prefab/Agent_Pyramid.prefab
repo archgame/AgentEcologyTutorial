@@ -136,7 +136,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4566400556638286782}
   m_Layer: 0
-  m_Name: Pos_5
+  m_Name: Pos_4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -229,6 +229,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Target: {fileID: 0}
+  Positions:
+  - {fileID: 6466024956463702190}
+  - {fileID: 8970718984205941586}
+  - {fileID: 3830000364258226391}
+  - {fileID: 6028176201297038395}
+  - {fileID: 6392993912019878639}
 --- !u!1 &6392993912019878639
 GameObject:
   m_ObjectHideFlags: 0
@@ -239,7 +245,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3377212823565798541}
   m_Layer: 0
-  m_Name: Pos_6
+  m_Name: Pos_5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
