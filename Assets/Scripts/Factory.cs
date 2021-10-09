@@ -23,7 +23,7 @@ public class Factory : MonoBehaviour
         _lastMake += Time.deltaTime; //_lastMake = _lastMake + Time.deltaTime;
         if (_lastMake > MakeRate)
         {
-            Debug.Log("Make");
+            //Debug.Log("Make");
             _lastMake = 0; //reset time counter
 
             GameObject go = Instantiate(Prefab, this.transform.position, Quaternion.identity);
