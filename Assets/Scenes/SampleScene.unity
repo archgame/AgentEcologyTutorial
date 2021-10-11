@@ -1098,6 +1098,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Factory
       objectReference: {fileID: 0}
+    - target: {fileID: 3749306651919944227, guid: 9a979f736ec4a924bb92cd1a88575693, type: 3}
+      propertyPath: Target
+      value: 
+      objectReference: {fileID: 40003940}
     - target: {fileID: 3749306651919944231, guid: 9a979f736ec4a924bb92cd1a88575693, type: 3}
       propertyPath: m_RootOrder
       value: 4
