@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HelloWorld : MonoBehaviour
+public class HelloWorld2 : MonoBehaviour
 {
     private int count = 0; //global variable
 
