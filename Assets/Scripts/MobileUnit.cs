@@ -88,7 +88,11 @@ public class MobileUnit : MonoBehaviour
 
         Debug.DrawLine(this.transform.position, Target.transform.position, Color.black);
         Debug.DrawRay(this.transform.position, this.transform.forward, Color.red);
+        HasReachedTarget();
+    }
 
+    private void HasReachedTarget()
+    {
         //test if agent has reached target
         if (!Agent.pathPending) //if agent is looking for target it hasn't reached target
         {

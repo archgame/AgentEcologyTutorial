@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class Factory : MonoBehaviour
 {
-    public GameObject Prefab;
+    private bool _prefab = false;
+    public GameObject Prefab1;
+    public GameObject Prefab2;
+    public GameObject[] Prefabs;
     public string TargetTag;
     public int MakeLimit = 6; //maximum agents before destruction
     private int _makeCount = 0; //each time we make an agent, add to count
@@ -39,7 +42,18 @@ public class Factory : MonoBehaviour
             //Debug.Log("Make");
             _lastMake = 0; //reset time counter
             _makeCount++; //increase agent make count by one
-            GameObject go = Instantiate(Prefab, this.transform.position, Quaternion.identity);
+
+            /*/
+            GameObject prefab = Prefab1;
+            if (_prefab)
+            {
+                prefab = Prefab2;
+            }
+            _prefab = !_prefab; //switch boolean
+            //*/
+
+            GameObject prefab = Prefabs[Random.Range(0, Prefabs.Length)]; //random prefab
+            GameObject go = Instantiate(prefab, this.transform.position, Quaternion.identity);
             MobileUnit mu = go.GetComponent<MobileUnit>();
             mu.Target = Target;
         }
