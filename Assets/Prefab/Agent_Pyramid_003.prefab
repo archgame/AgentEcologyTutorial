@@ -50,7 +50,7 @@ NavMeshAgent:
   m_Radius: 1
   m_Speed: 3.5
   m_Acceleration: 8
-  avoidancePriority: 50
+  avoidancePriority: 51
   m_AngularSpeed: 360
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
@@ -80,6 +80,7 @@ MonoBehaviour:
   - {fileID: 1700632231375609037}
   - {fileID: 2056390515776098841}
   Factory: {fileID: 3749306651919944224, guid: 9a979f736ec4a924bb92cd1a88575693, type: 3}
+  _factory: {fileID: 0}
   _reachedTarget: 0
 --- !u!1 &1700632231375609037
 GameObject:
@@ -263,7 +264,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10756, guid: 0000000000000000e000000000000000, type: 0}
+  - {fileID: -5209386559919585115, guid: 21c79ddf7a5b8d545976aa5696608484, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

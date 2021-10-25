@@ -196,7 +196,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8311623224824291925}
   - component: {fileID: 8311623224824291924}
-  - component: {fileID: 8311623224824291915}
   m_Layer: 0
   m_Name: Agent_Pyramid_002
   m_TagString: Agent
@@ -246,27 +245,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &8311623224824291915
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8311623224824291921}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c6aa753c3d15604b895110da4a27c21, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Target: {fileID: 0}
-  Positions:
-  - {fileID: 8963835848200988134}
-  - {fileID: 6458297266561646106}
-  - {fileID: 1223003604193949087}
-  - {fileID: 8536146583496739187}
-  - {fileID: 9036020002277607335}
-  Factory: {fileID: 3749306651919944224, guid: 9a979f736ec4a924bb92cd1a88575693, type: 3}
-  _reachedTarget: 0
 --- !u!1 &8536146583496739187
 GameObject:
   m_ObjectHideFlags: 0
