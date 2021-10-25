@@ -8,9 +8,14 @@ public class MobileUnit : MonoBehaviour
 {
     public GameObject Target;
     public GameObject[] Positions;
-    private NavMeshAgent Agent;
-    public GameObject Factory; //factory prefab to instantiate
+
+    [HideInInspector]
+    public NavMeshAgent Agent;
+
     private Dictionary<GameObject, GameObject> Configure = new Dictionary<GameObject, GameObject>();
+
+    [HideInInspector]
+    public Factory _factory; //used to tell this factory when it has successfully made another factory
 
     [HideInInspector]
     public bool _reachedTarget = false;
@@ -24,6 +29,25 @@ public class MobileUnit : MonoBehaviour
         {
             Configure.Add(pos, null);
         }
+    }
+
+    public void UpdateTarget(GameObject target)
+    {
+        if (Agent.enabled == false)
+        {
+            Debug.Log("Agent Destroy");
+            List<GameObject> keys = Configure.Keys.ToList(); //get dictionary keys as list
+            foreach (GameObject key in keys)
+            {
+                GameObject go = Configure[key]; //get agent associated with this key
+                Destroy(go); //delete all agents in configure positions
+            }
+            Destroy(gameObject);
+            return;
+        }
+        Target = target;
+        Agent = this.GetComponent<NavMeshAgent>();
+        Agent.SetDestination(Target.transform.position);
     }
 
     public void StartConfigure(GameObject go)
@@ -77,9 +101,8 @@ public class MobileUnit : MonoBehaviour
                     Destroy(go); //delete all agents in configure positions
                 }
 
-                GameObject factory = Instantiate(Factory, transform.position, transform.rotation); //create factory
-                float moveY = factory.transform.localScale.y / 2.0f; //get half factory height
-                factory.transform.position += new Vector3(0, moveY, 0); //move factory up
+                if (_factory != null) { _factory.DestroyFactory(); }
+                Manager.Instance.InstantiateFactory(Target);
                 Destroy(gameObject); //destroy the agent this script is attached to
             }
 
@@ -91,7 +114,7 @@ public class MobileUnit : MonoBehaviour
         HasReachedTarget();
     }
 
-    private void HasReachedTarget()
+    public virtual void HasReachedTarget()
     {
         //test if agent has reached target
         if (!Agent.pathPending) //if agent is looking for target it hasn't reached target
@@ -101,6 +124,10 @@ public class MobileUnit : MonoBehaviour
                 if (!Agent.hasPath || Agent.velocity.sqrMagnitude == 0f) //if agent isn't moving
                 {
                     Debug.Log("Target Reached!!!");
+
+                    //if a factory has already been created, we destroy
+                    if (Manager.Instance.IsTargetOccupied(Target)) { Destroy(gameObject); }
+
                     _reachedTarget = true;
                     Agent.enabled = false;
                 }

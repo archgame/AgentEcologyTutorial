@@ -8,11 +8,9 @@ public class Factory : MonoBehaviour
     public GameObject Prefab1;
     public GameObject Prefab2;
     public GameObject[] Prefabs;
-    public string TargetTag;
+    public GameObject Target; //this is now the occupied target
     public int MakeLimit = 6; //maximum agents before destruction
     private int _makeCount = 0; //each time we make an agent, add to count
-    private GameObject Target;
-
     public float MakeRate = 2.0f;
 
     private float _lastMake = 0;
@@ -20,8 +18,7 @@ public class Factory : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-        GameObject[] targets = GameObject.FindGameObjectsWithTag(TargetTag);
-        Target = targets[Random.Range(0, targets.Length)];
+        //update make Limit for number of Targets, Factories
     }
 
     // Update is called once per frame
@@ -33,7 +30,7 @@ public class Factory : MonoBehaviour
         //destroy factory when limit reached
         if (_makeCount >= MakeLimit)
         {
-            Destroy(gameObject);
+            //DestroyFactory();
         }
 
         _lastMake += Time.deltaTime; //_lastMake = _lastMake + Time.deltaTime;
@@ -52,10 +49,20 @@ public class Factory : MonoBehaviour
             _prefab = !_prefab; //switch boolean
             //*/
 
-            GameObject prefab = Prefabs[Random.Range(0, Prefabs.Length)]; //random prefab
-            GameObject go = Instantiate(prefab, this.transform.position, Quaternion.identity);
-            MobileUnit mu = go.GetComponent<MobileUnit>();
-            mu.Target = Target;
+            if (Manager.Instance.MakeAgentsAllowed())
+            {
+                GameObject prefab = Prefabs[Random.Range(0, Prefabs.Length)]; //random prefab
+                GameObject go = Instantiate(prefab, this.transform.position, Quaternion.identity);
+                MobileUnit mu = go.GetComponent<MobileUnit>();
+                mu.Target = Manager.Instance.GetTarget();
+                mu._factory = this;
+            }
         }
+    }
+
+    public void DestroyFactory()
+    {
+        Manager.Instance.RemoveTargetFromList(Target);
+        Destroy(gameObject);
     }
 }
