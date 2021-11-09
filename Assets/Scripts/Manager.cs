@@ -1,11 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI; //***
 
 public class Manager : MonoBehaviour
 {
     [HideInInspector]
     public static Manager Instance { get; private set; } //used for singleton, can be referenced by any other script
+
+    public Text TextUI; //***
+    private int _factoryCount = 0; //***
 
     public GameObject FactoryPrefab;
     public string TargetTag = "Target";
@@ -53,6 +57,9 @@ public class Manager : MonoBehaviour
 
     public void InstantiateFactory(GameObject target)
     {
+        _factoryCount++;//***
+        TextUI.text = _factoryCount.ToString();//***
+
         GameObject go = Instantiate(FactoryPrefab, target.transform.position, target.transform.rotation);
         float moveY = go.transform.localScale.y / 2.0f; //get half factory height
         go.transform.position += new Vector3(0, moveY, 0); //move factory up
