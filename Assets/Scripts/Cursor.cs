@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.AI;
 
 public class Cursor : MonoBehaviour
 {
@@ -15,6 +16,12 @@ public class Cursor : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
+        NavMeshSurface[] surfaces = FindObjectsOfType<NavMeshSurface>();
+        foreach (NavMeshSurface surface in surfaces)
+        {
+            Debug.Log("BuildNavMeshSurface");
+            surface.BuildNavMesh();
+        }
         rect = GetComponent<RectTransform>();
     }
 
@@ -36,8 +43,20 @@ public class Cursor : MonoBehaviour
                 _selectedFactory.transform.position = hit.point + new Vector3(0, yy, 0);
                 if (Input.GetButtonDown("South"))
                 {
-                    Factory factory = _selectedFactory.GetComponent<Factory>();
-                    factory.enabled = true;
+                    if (!_selectedFactory.name.Contains("Obstacle"))
+                    {
+                        Factory factory = _selectedFactory.GetComponent<Factory>();
+                        factory.enabled = true;
+                    }
+                    else
+                    {
+                        NavMeshSurface[] surfaces = FindObjectsOfType<NavMeshSurface>();
+                        foreach (NavMeshSurface surface in surfaces)
+                        {
+                            Debug.Log("BuildNavMeshSurface");
+                            surface.BuildNavMesh();
+                        }
+                    }
                     _isRelocating = false;
                 }
             }
@@ -50,8 +69,11 @@ public class Cursor : MonoBehaviour
                 if (Input.GetButtonDown("South"))
                 {
                     _selectedFactory = hit.transform.gameObject;
-                    Factory factory = _selectedFactory.GetComponent<Factory>();
-                    factory.enabled = false;
+                    if (!_selectedFactory.name.Contains("Obstacle"))
+                    {
+                        Factory factory = _selectedFactory.GetComponent<Factory>();
+                        factory.enabled = false;
+                    }
                     _isRelocating = true;
                 }
             }
