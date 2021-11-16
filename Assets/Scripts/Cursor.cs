@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.AI;
 
 public class Cursor : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class Cursor : MonoBehaviour
     private void Start()
     {
         rect = GetComponent<RectTransform>();
+        //UpdateAllNavMesh();
     }
 
     private bool _isRelocating = false;
@@ -28,30 +30,39 @@ public class Cursor : MonoBehaviour
         Debug.DrawRay(ray.origin, ray.direction * 100, Color.black);
 
         RaycastHit hit;
-        if (_isRelocating)
+        if (_isRelocating) //has picked up selectable item
         {
             if (Physics.Raycast(ray.origin, ray.direction, out hit, Mathf.Infinity, PlaceMask))
             {
                 float yy = _selectedFactory.transform.localScale.y / 2.0f;
                 _selectedFactory.transform.position = hit.point + new Vector3(0, yy, 0);
-                if (Input.GetButtonDown("South"))
+                if (Input.GetButtonDown("South")) //drop/place item
                 {
                     Factory factory = _selectedFactory.GetComponent<Factory>();
-                    factory.enabled = true;
+                    if (factory != null)
+                    {
+                        //selected factory
+                        factory.enabled = true;
+                    }
+                    else
+                    {
+                        //selected obstacle
+                        UpdateAllNavMesh();
+                    }
                     _isRelocating = false;
                 }
             }
         }
-        else
+        else //test for selectable item
         {
             if (Physics.Raycast(ray.origin, ray.direction, out hit, Mathf.Infinity, SelectMask))
             {
                 Debug.Log("Factory");
-                if (Input.GetButtonDown("South"))
+                if (Input.GetButtonDown("South")) //pick up item
                 {
                     _selectedFactory = hit.transform.gameObject;
                     Factory factory = _selectedFactory.GetComponent<Factory>();
-                    factory.enabled = false;
+                    if (factory != null) { factory.enabled = true; }
                     _isRelocating = true;
                 }
             }
@@ -77,5 +88,14 @@ public class Cursor : MonoBehaviour
         //set anchor
         anchor = new Vector2(x, y);
         rect.anchoredPosition = anchor;
+    }
+
+    public static void UpdateAllNavMesh()
+    {
+        NavMeshSurface[] surfaces = FindObjectsOfType<NavMeshSurface>();
+        foreach (NavMeshSurface surface in surfaces)
+        {
+            surface.BuildNavMesh();
+        }
     }
 }

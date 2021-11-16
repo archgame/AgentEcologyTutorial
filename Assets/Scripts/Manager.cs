@@ -16,9 +16,10 @@ public class Manager : MonoBehaviour
     public string FactoryTag = "Factory";
     public string AgentTag = "Agent";
 
+    //singleton pattern
     private void Awake()
     {
-        if (Instance != null && Instance != this) //singleton pattern
+        if (Instance != null && Instance != this)
             Destroy(this.gameObject);
         else
             Instance = this;

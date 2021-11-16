@@ -58,7 +58,7 @@ NavMeshAgent:
   m_AutoRepath: 1
   m_Height: 1
   m_BaseOffset: 0
-  m_WalkableMask: 4294967295
+  m_WalkableMask: 1
   m_ObstacleAvoidanceType: 4
 --- !u!114 &1348671268031576053
 MonoBehaviour:
@@ -79,7 +79,7 @@ MonoBehaviour:
   - {fileID: 8149082493061259297}
   - {fileID: 1700632231375609037}
   - {fileID: 2056390515776098841}
-  Factory: {fileID: 3749306651919944224, guid: 9a979f736ec4a924bb92cd1a88575693, type: 3}
+  Agent: {fileID: 0}
   _factory: {fileID: 0}
   _reachedTarget: 0
 --- !u!1 &1700632231375609037

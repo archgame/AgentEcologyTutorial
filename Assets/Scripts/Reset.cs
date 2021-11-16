@@ -5,6 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class Reset : MonoBehaviour
 {
+    private void Start()
+    {
+        Cursor.UpdateAllNavMesh();
+    }
+
     // Update is called once per frame
     private void Update()
     {
